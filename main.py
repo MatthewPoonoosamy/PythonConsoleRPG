@@ -320,7 +320,13 @@ while run:
 
         if rules:
             clear()
-            print("I'm the creator of this game and these are the rules.")
+            print("Hey! I'm MrT8Bit and these are the Rules...")
+            print("xX--------------------xX")
+            print("1. Type in Numbers to Make Decisions Throughout your Adventure.")
+            print("2. Don't spam actions! This can softlock your game!")
+            print("HINT: You want to level up your ATK stat as much as possible")
+            print("xX--------------------xX")
+            print("Have Fun!")
             rules = False
             choice = ""
             input("> ")
@@ -439,7 +445,7 @@ while run:
                 else:
                     print("No elixirs!")
                 input("> ")
-                standing = True
+                standing = Tru
             elif dest == "7":
                 if map[y][x] == "shop":
                     buy = True
