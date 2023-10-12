@@ -114,7 +114,7 @@ def save():
     file = open("load.txt", "w")
 
     for item in list:
-        file.write(item + "\n")100
+        file.write(item + "\n")
     file.close()
 
 
@@ -439,7 +439,7 @@ while run:
                 else:
                     print("No elixirs!")
                 input("> ")
-                standing = Tru
+                standing = True
             elif dest == "7":
                 if map[y][x] == "shop":
                     buy = True
