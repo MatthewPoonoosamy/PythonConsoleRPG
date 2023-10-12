@@ -10,5 +10,5 @@ The goal of the game is to become strong enough, then make your way to the mayor
 
 ## Help!!! I keep dying and I don't know what to do!
 
-- Don't go too far: As fun as it is to explore deep into the map too far! That's where the big enemies spawn, be sure to grind out slimes in the starter areas of the game until your more powerful.
-- Stock up on Potions: Be sure to take frequent stops at the shop to stock up on items that can help you in battle.
+- **Don't go too far:** As fun as it is to explore the map, don't dive deep into the map too far! That's where the big enemies spawn, be sure to grind out slimes in the starter areas of the game until your more powerful.
+- **Stock up on Potions:** Be sure to make frequent stops at the shop to stock up on items that can help you in battle.
