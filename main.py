@@ -91,7 +91,7 @@ mobs = {
 
 
 def clear():
-    print("\n" * 50)
+    print(100 * "\n")
 
 
 def draw():
@@ -320,17 +320,17 @@ while run:
 
         if rules:
             clear()
-            print("Hey! I'm MrT8Bit and these are the Rules...")
-            print("xX--------------------xX")
-            print("1. Type in Numbers to Make Decisions Throughout your Adventure.")
-            print("2. Don't spam actions! This can softlock your game!")
-            print("HINT: You want to level up your ATK stat as much as possible")
-            print("xX--------------------xX")
-            print("Have Fun!")
+            draw()
+            print("Rules!")
+            draw()
+            print("1. Use the Number Keys to Determine Where to Go!")
+            print("2. Be sure to not stray off too far in the early game, the end of the map is where the Orcs spawn the most!")
+            print("3. Don't spam the buttons! This could not only damage the scripts, but also your internal machine, we don't want that!")
+            draw()
+            print("Press Enter to Continue...")
             rules = False
             choice = ""
             input("> ")
-            clear()
         else:
             choice = input("# ")
 
@@ -445,7 +445,7 @@ while run:
                 else:
                     print("No elixirs!")
                 input("> ")
-                standing = Tru
+                standing = True
             elif dest == "7":
                 if map[y][x] == "shop":
                     buy = True
