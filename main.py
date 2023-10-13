@@ -206,7 +206,12 @@ def battle():
                 print("You've found a potion!")
             if enemy == "Dragon":
                 draw()
-                print("Congratulations, you've finished the game!")
+                print("=======================================")
+                print("=        CONGRATULATIONS!!!           =")
+                print("==You've just beaten this awesome RPG!=")
+                print("=======================================")
+                print("==Please give us a star on GitHub======")
+                print("=======================================")
                 boss = False
                 play = False
                 run = False
