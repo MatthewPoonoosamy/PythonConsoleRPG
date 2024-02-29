@@ -210,7 +210,7 @@ def battle():
                 print("=        CONGRATULATIONS!!!           =")
                 print("==You've just beaten this awesome RPG!=")
                 print("=======================================")
-                print("==Please give us a star on GitHub======")
+                print("==Please give me a star on GitHub======")
                 print("=======================================")
                 boss = False
                 play = False
