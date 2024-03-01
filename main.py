@@ -24,7 +24,7 @@ y = 0
 map = [["plains",   "plains",   "plains",   "plains",   "forest", "mountain",       "cave"],    # y = 0
        ["forest",   "forest",   "forest",   "forest",   "forest",    "hills",   "mountain"],    # y = 1
        ["forest",   "fields",   "bridge",   "plains",    "hills",   "forest",      "hills"],    # y = 2
-       ["plains",     "shop",     "town",    "mayor",   "plains",    "hills",   "mountain"],    # y = 3
+       ["plains",     "shop",     "town",    "mayor",   "plains",    "hills",       "shop"],    # y = 3
        ["plains",   "fields",   "fields",   "plains",    "hills", "mountain",   "mountain"]]    # y = 4
 
 y_len = len(map)-1
