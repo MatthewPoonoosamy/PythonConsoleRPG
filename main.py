@@ -342,6 +342,7 @@ while run:
             rules = False
             choice = ""
             input("> ")
+            clear()    
         else:
             choice = input("# ")
 
