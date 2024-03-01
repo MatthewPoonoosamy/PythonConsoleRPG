@@ -332,6 +332,12 @@ while run:
             print("2. Be sure to not stray off too far in the early game, the end of the map is where the Orcs spawn the most!")
             print("3. Don't spam the buttons! This could not only damage the scripts, but also your internal machine, we don't want that!")
             draw()
+            print("Speedrunning!")
+            draw()
+            print("- The timer starts when you hit enter on the name select screen.")
+            print("- The timer ends upon the last hit of fighting the dragon.")
+            print("The current World Record is 2:03, can you beat it?!")    
+            draw()
             print("Press Enter to Continue...")
             rules = False
             choice = ""
