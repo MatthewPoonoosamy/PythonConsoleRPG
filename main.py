@@ -205,6 +205,7 @@ def battle():
                 pot += 1
                 print("You've found a potion!")
             if enemy == "Dragon":
+                clear()
                 draw()
                 print("=======================================")
                 print("=        CONGRATULATIONS!!!           =")
@@ -212,11 +213,11 @@ def battle():
                 print("=======================================")
                 print("==Please give me a star on GitHub======")
                 print("=======================================")
+                draw()
                 boss = False
                 play = False
                 run = False
             input("> ")
-            clear()
 
 
 def shop():
