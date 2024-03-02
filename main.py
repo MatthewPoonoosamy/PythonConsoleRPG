@@ -337,7 +337,7 @@ while run:
             draw()
             print("- The timer starts when you hit enter on the name select screen.")
             print("- The timer ends upon the last hit of fighting the dragon.")
-            print("The current World Record is 2:03, can you beat it?!")    
+            print("The current World Record is 1:45, can you beat it?!")    
             draw()
             print("Press Enter to Continue...")
             rules = False
