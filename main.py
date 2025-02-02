@@ -20,13 +20,18 @@ gold = 0
 x = 0
 y = 0
 
-Limiter = False
+Limiter = 0
 PreviousUsed = "1 "
 currentLocX = 2
 currentLocY = 3
 currentCoords = [currentLocX,currentLocY]
 townCoords = [2,3]
 directionList = ["north","northeast","east","southeast","south","southwest","west","northwest"]
+nameList = [["Bartholomew Donaldson","Nigel Higgenbottom","Claire Presley","Elvis Rosinkranz","William de Meij",],
+            ["Julia McKenna","Declan Fronteo","Kelsey Cook","Vance Watson","Patrick Joy"],
+            ["Mickey Heem","Baz Moriondo","Khai Price","Rosa Coggins","Hallie Walton"],
+            ["Blake Dunbar","Isaac Miles","Grady Jon","Cody Mantra","Brian Brooks"],
+            ["Peter Williams","Phillip Hyde","Ellie Stevens","Teddy Mala","Billie Sufjan"]]
 
 #  x = 0       x = 1       x = 2       x = 3       x = 4       x = 5         x = 6
 map = [["plains", "plains", "plains", "plains", "forest", "mountain", "cave"],  # y = 0
@@ -290,20 +295,21 @@ def battle():
         draw()
         choice = input("# ")
         if enemy == "Satyr":
-            print("These woods are not safe for your kind\n1: \"I must push forward\"\n2: Turn Back\n"+"3: Attack!")
+            print("\"These woods are not safe for your kind\"\n1: \"I must push forward\"\n2: Turn Back\n"+"3: Attack!")
             if choice == "1":
                 potionsgiven = random.randint(1, 4)
-                print("If you must, take these:\n+"+str(potionsgiven)+" Potions");
+                print("\"If you must, take these\"\n+"+str(potionsgiven)+" Potions Received")
                 pot += potionsgiven
             elif choice == "2":
-                Limiter = True
+                Limiter = 1
                 Fight = False
             elif choice == "3":
                 friend = False
         elif enemy == "Human":
-            print("Thank goodness you're here!\n1: \"Who are you?\"\n2: \"Empty your pockets or I'll gut you like a fish\"")
+            print("\"Thank goodness you're here!\"\n1: \"Who are you?\"\n2: \"Empty your pockets or I'll gut you like a fish\"")
             if choice == "1":
-                distance = str(math.dist(currentCoords,townCoords))
+                givename = nameList[random.randint(0,4)][random.randint(0,4)]
+                distance = str(int(math.dist(currentCoords,townCoords)))
                 direction = directionList[1]
                 if currentLocY-3 == 0:
                     if currentLocX-2>0:
@@ -325,8 +331,14 @@ def battle():
                         direction = directionList[2]
                     else:
                         direction = directionList[8]
+                print("\"My name is "+givename+", I had too much mead last night and now I can't find the town!\"\n1: \"I'll help you, for a price\n2: The town is "+distance+" miles "+direction+"\n3: \"I'll take you there\"\n4: Fight!")
+                if choice == "1":
+                    print("\"I don't have much, but you can have what's left\"")
+                    goldgift=int(random.randint(1,5))
+                    gold+=goldgift
+                    print("You received "+str(goldgift)+" gold!")
 
-                print("My name is Bartholomew Donaldson, I had too much mead last night and now I can't find the town!\n1: \"I'll help you, for a price\n2: The town is "+distance+" miles "+direction+"\n3: \"I'll take you there\"\n4: Fight!")
+
         elif enemy == "Gnome":
             print("...")
 
@@ -583,7 +595,7 @@ while run:
             print("0 - SAVE AND QUIT")
             dest = input("# ")
 
-            if Limiter:
+            if Limiter>0:
                 if y > 0 and previousUsed != "1":
                     print("1 - NORTH")
                 if x < x_len and previousUsed != "2":
@@ -599,62 +611,66 @@ while run:
                 if map[y][x] == "shop" or map[y][x] == "mayor" or map[y][x] == "cave":
                     print("7 - ENTER")
 
-            if dest == "0":
-                play = False
-                menu = True
-                save()
-            elif dest == "1" and previousUsed != "1":
-                if y > 0:
-                    y -= 1
-                standing = False
-                currentLocY += 1
-                previousUsed = 1
-            elif dest == "2" and previousUsed != "2":
-                if x < x_len:
-                    x += 1
-                standing = False
-                currentLocX += 1
-                previousUsed = 2
-            elif dest == "3" and previousUsed != "3":
-                if y < y_len:
-                    y += 1
-                standing = False
-                currentLocY -= 1
-                previousUsed = 3
-            elif dest == "4" and previousUsed != "1":
-                if x > 0:
-                    x -= 1
-                standing = False
-                currentLocX -= 1
-                previousUsed = 4
-            elif dest == "5":
-                if pot > 0:
-                    pot -= 1
-                    heal(30)
-                else:
-                    print("No potions!")
-                    input("> ")
-                    standing = True
-            elif dest == "6":
-                if elix > 0:
-                    elix -= 1
-                    heal(50)
-                else:
-                    print("No elixirs!")
-                    input("> ")
-                    standing = True
-            elif dest == "7":
-                if map[y][x] == "shop":
-                    buy = True
-                    shop()
-                if map[y][x] == "mayor":
-                    speak = True
-                    mayor()
-                if map[y][x] == "cave":
-                    boss = True
-                    cave()
-                else:
-                    standing = True
+                if dest == "0":
+                    play = False
+                    menu = True
+                    save()
+                elif dest == "1" and previousUsed != "1":
+                    if y > 0:
+                        y -= 1
+                    standing = False
+                    currentLocY += 1
+                    previousUsed = 1
+                    Limiter -= 1
+                elif dest == "2" and previousUsed != "2":
+                    if x < x_len:
+                        x += 1
+                    standing = False
+                    currentLocX += 1
+                    previousUsed = 2
+                    Limiter -= 1
+                elif dest == "3" and previousUsed != "3":
+                    if y < y_len:
+                        y += 1
+                    standing = False
+                    currentLocY -= 1
+                    previousUsed = 3
+                    Limiter -= 1
+                elif dest == "4" and previousUsed != "1":
+                    if x > 0:
+                        x -= 1
+                    standing = False
+                    currentLocX -= 1
+                    previousUsed = 4
+                    Limiter -= 1
+                elif dest == "5":
+                    if pot > 0:
+                        pot -= 1
+                        heal(30)
+                    else:
+                        print("No potions!")
+                        input("> ")
+                        standing = True
+                elif dest == "6":
+                    if elix > 0:
+                        elix -= 1
+                        heal(50)
+                    else:
+                        print("No elixirs!")
+                        input("> ")
+                        standing = True
+                elif dest == "7":
+                    if map[y][x] == "shop":
+                        buy = True
+                        shop()
+                    if map[y][x] == "mayor":
+                        speak = True
+                        mayor()
+                    if map[y][x] == "cave":
+                        boss = True
+                        cave()
+                    else:
+                        standing = True
             else:
                 if y > 0:
                     print("1 - NORTH")
