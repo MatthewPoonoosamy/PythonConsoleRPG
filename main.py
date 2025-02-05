@@ -21,6 +21,9 @@ x = 0
 y = 0
 
 Limiter = 0
+notoriety = 0
+companion = 0
+companionATK = random.randint(1,3)
 Friend = False
 PreviousUsed = "1 "
 currentLocX = 2
@@ -247,7 +250,7 @@ def heal(amount):
     print(name + "'s HP refilled to " + str(HP) + "!")
 
 def battle():
-    global fight, play, run, HP, pot, elix, gold, boss, Friend, Limiter, x, y, currentLocX, currentLocY, currentCoords, townCoords
+    global fight, play, run, HP, pot, elix, gold, boss, Friend, Limiter, x, y, currentLocX, currentLocY, currentCoords, townCoords, notoriety, companion
 
     if not boss:
         random_int = random.randint(1, 1000)
@@ -290,6 +293,74 @@ def battle():
                 print("3 - USE ELIXIR (50HP)")
             draw()
 
+            choice = input("# ")
+
+            if choice == "1":
+                compATK = companionATK
+                hp -= ATK
+                hp -= compATK
+                print(name + " dealt " + str(ATK) + " damage to the " + enemy + ", with "+str(compATK)+" bonus from companion")
+                if hp > 0:
+                    HP -= atk
+                    print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
+                input("> ")
+
+            elif choice == "2":
+                if pot > 0:
+                    pot -= 1
+                    heal(30)
+                    HP -= atk
+                    print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
+                else:
+                    print("No potions!")
+                input("> ")
+
+            elif choice == "3":
+                if elix > 0:
+                    elix -= 1
+                    heal(50)
+                    HP -= atk
+                    print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
+                else:
+                    print("No elixirs!")
+                input("> ")
+
+            if HP <= 0:
+                print(enemy + " defeated " + name + "...")
+                draw()
+                fight = False
+                play = False
+                run = False
+                print("GAME OVER")
+                input("> ")
+
+            if hp <= 0:
+                print(name + " defeated the " + enemy + "!")
+                draw()
+                fight = False
+                gold += g
+                print("You've found " + str(g) + " gold!")
+                if enemy == ["Satyr","Human","Gnome"]:
+                    notoriety += 3
+                if random.randint(0, 100) < 30:
+                    pot += 1
+                    print("You've found a potion!")
+                if enemy == "Dragon":
+                    clear()
+                    draw()
+                    art1()
+                    print("=======================================")
+                    print("=        CONGRATULATIONS!!!           =")
+                    print("==You've just beaten this awesome RPG!=")
+                    print("=======================================")
+                    print("==Please give me a star on GitHub======")
+                    print("=======================================")
+                    draw()
+                    boss = False
+                    play = False
+                    run = False
+                input("> ")
+
         else:
             print("A " + enemy + " approaches you")
             draw()
@@ -304,7 +375,9 @@ def battle():
                     Limiter = 1
                     fight = False
                 elif choice == "3":
-                    friend = False
+                    Friend = False
+                    notoriety+=1
+                    continue
 
             elif enemy == "Human":
                 print("\"Thank goodness you're here!\"\n1: \"Who are you?\"\n2: \"Empty your pockets or I'll gut you like a fish\"")
@@ -332,87 +405,61 @@ def battle():
                             direction = directionList[2]
                         else:
                             direction = directionList[8]
-                    print("\"My name is "+givename+", I had too much mead last night and now I can't find the town!\"\n1: \"I'll help you, for a price\n2: The town is "+distance+" miles "+direction+"\n3: \"I'll take you there\"\n4: Fight!")
+                    print("\"My name is "+givename+", I had too much mead last night and now I can't find the town!\"\n1: \"I'll help you, for a price\"\n2: The town is "+distance+" miles "+direction+"\n3: \"I'll take you there\"\n4: Fight!")
                     if choice == "1":
                         print("\"I don't have much, but you can have what's left\"")
-                        goldgift=int(random.randint(1,5))
+                        goldgift=random.randint(1,5)
                         gold+=goldgift
                         print("You received "+str(goldgift)+" gold!")
                         fight = False
                     elif choice == "2":
+                        print("Oh bless you!")
+                        notoriety-=1
                         fight = False
                     elif choice == "3":
                         x = 2
                         y = 3
                         currentCoords = [2,3]
+                        print("\"Oh bless you!\"\nYou have returned to the town")
+                        notoriety-=2
+                        fight = False
+                    else:
+                        Friend = False
+                        continue
+                if choice == "2":
+                    vigor = random.randint(0,100)
+                    if vigor%3 == 0:
+                        print("Take it! Just take it and leave me be")
+                        goldtheft=random.randint(3,15)
+                        gold+=goldtheft
+                        print("You received "+str(goldtheft)+" gold!")
+                        notoriety+=1
+                        fight = False
+                    else:
+                        print("\"Over my dead body!\"")
+                        Friend = False
+                        continue
 
             elif enemy == "Gnome":
-                print("...")
+                print("\"Ai! Amrog? Anos? Graug?\"\n1: \"What?\"\n2: Attack!")
+                if choice == "1":
+                    print("*In broken English* What you... Man, or Beast?\n1: Be Honest\n2: Lie")
+                    if choice == "1":
+                        print("I am an adventurer, I seek to slaughter the dragon what which terrorizes this land")
+                        gamble = random.randint(1,100)
+                        if gamble%3 == 0:
+                            print("\"Very well, I shall join you on your quest\"\nYou have acquired a companion!")
+                            companion+=1
+                        else:
+                            potionsgiven = random.randint(1, 4)
+                            pot+=potionsgiven
+                            print("\"I wish you well on your journey, take these for the road\"\n"+str(potionsgiven)+" Potions Received")
+                    else:
+                        print("1: I am but an apparition\n2: I am a Daemon\n3: *Remain silent and still*")
 
-        choice = input("# ")
-
-        if choice == "1":
-            hp -= ATK
-            print(name + " dealt " + str(ATK) + " damage to the " + enemy + ".")
-            if hp > 0:
-                HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
-            input("> ")
-
-        elif choice == "2":
-            if pot > 0:
-                pot -= 1
-                heal(30)
-                HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
-            else:
-                print("No potions!")
-            input("> ")
-
-        elif choice == "3":
-            if elix > 0:
-                elix -= 1
-                heal(50)
-                HP -= atk
-                print(enemy + " dealt " + str(atk) + " damage to " + name + ".")
-            else:
-                print("No elixirs!")
-            input("> ")
-
-        if HP <= 0:
-            print(enemy + " defeated " + name + "...")
-            draw()
-            fight = False
-            play = False
-            run = False
-            print("GAME OVER")
-            input("> ")
-
-        if hp <= 0:
-            print(name + " defeated the " + enemy + "!")
-            draw()
-            fight = False
-            gold += g
-            print("You've found " + str(g) + " gold!")
-            if random.randint(0, 100) < 30:
-                pot += 1
-                print("You've found a potion!")
-            if enemy == "Dragon":
-                clear()
-                draw()
-                art1()
-                print("=======================================")
-                print("=        CONGRATULATIONS!!!           =")
-                print("==You've just beaten this awesome RPG!=")
-                print("=======================================")
-                print("==Please give me a star on GitHub======")
-                print("=======================================")
-                draw()
-                boss = False
-                play = False
-                run = False
-            input("> ")
-
+                if choice == "2":
+                    Friend = False
+                    continue
 
 def shop():
     global buy, gold, pot, elix, ATK
